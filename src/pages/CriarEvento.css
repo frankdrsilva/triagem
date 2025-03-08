@@ -1,0 +1,21 @@
+.criar-evento-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
+  }
+  
+  .page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background);
+    padding: 20px;
+    min-height: calc(100vh - 48px); /* 48px é a altura aproximada do header */
+  }
+  
+  @media screen and (min-width: 768px) {
+    .page-content {
+      padding: 32px;
+    }
+  }

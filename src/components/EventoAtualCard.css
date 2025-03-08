@@ -1,0 +1,100 @@
+.evento-atual-card {
+    background-color: var(--branco);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--sombra);
+    margin: 16px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  
+  .evento-atual-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .evento-atual-conteudo {
+    padding: 16px;
+  }
+  
+  .evento-atual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .evento-atual-header h3 {
+    color: var(--verde-escuro);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .evento-atual-status {
+    background-color: var(--verde-escuro);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+  }
+  
+  .evento-atual-nome {
+    font-size: 20px;
+    margin: 8px 0;
+    color: var(--texto-escuro);
+  }
+  
+  .evento-atual-periodo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .evento-atual-data {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .evento-atual-descricao {
+    font-size: 14px;
+    color: #444;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  
+  .evento-atual-sem-evento {
+    text-align: center;
+    padding: 16px 0;
+  }
+  
+  .evento-atual-sem-evento h3 {
+    color: #666;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .evento-atual-sem-evento p {
+    color: #888;
+    font-size: 14px;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .evento-atual-card {
+      margin: 20px;
+    }
+    
+    .evento-atual-conteudo {
+      padding: 20px;
+    }
+    
+    .evento-atual-nome {
+      font-size: 22px;
+    }
+    
+    .evento-atual-periodo {
+      flex-direction: row;
+      gap: 20px;
+    }
+  }

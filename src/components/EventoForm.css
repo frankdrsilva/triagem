@@ -1,0 +1,127 @@
+.evento-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .evento-form {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .evento-form h2 {
+    color: var(--verde-escuro);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--texto-escuro);
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--verde-medio);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  }
+  
+  .form-actions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+  
+  .btn-cancel {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .btn-submit {
+    background-color: var(--verde-escuro);
+    color: white;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .btn-submit:hover {
+    background-color: #1b5e20;
+  }
+  
+  .btn-cancel:disabled,
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .form-error {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border-left: 4px solid #c62828;
+  }
+  
+  .form-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border-left: 4px solid #2e7d32;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .evento-form-container {
+      padding: 12px;
+    }
+    
+    .evento-form {
+      padding: 16px;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .btn-cancel,
+    .btn-submit {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  }
