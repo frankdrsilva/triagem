@@ -57,7 +57,7 @@ const TelaInicial = () => {
     // Configurar atualização automática a cada 10 segundos
     const intervalo = setInterval(() => {
       fetchData();
-    }, 10000);
+    }, 30000);
     
     // Limpar o intervalo quando o componente for desmontado
     return () => clearInterval(intervalo);
