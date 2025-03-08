@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TelaInicial from './pages/TelaInicial';
-// Importe outros componentes conforme necessário
+// Remova a importação do App.css para evitar conflitos com o TelaInicial.css
+// import './App.css';
 
 function App() {
   return (
