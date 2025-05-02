@@ -7,29 +7,13 @@ import Parse from './parseService';
  */
 export const getLeitosService = async (eventoId = null) => {
   try {
-    let todosLeitos = [];
-    let skip = 0;
-    const limit = 1000; // Máximo permitido pelo Parse
-    let finished = false;
+    // Buscar todos os leitos diretamente sem limite
+    const query = new Parse.Query('Leito');
+    query.ascending('bloco');
+    query.ascending('numero');
+    query.limit(1000000); // Um valor grande para buscar todos os leitos
     
-    while (!finished) {
-      // Nova query para cada lote
-      const query = new Parse.Query('Leito');
-      query.limit(limit);
-      query.skip(skip);
-      query.ascending('bloco');
-      query.ascending('numero');
-      
-      const results = await query.find();
-      
-      todosLeitos = [...todosLeitos, ...results];
-      
-      if (results.length < limit) {
-        finished = true;
-      } else {
-        skip += limit;
-      }
-    }
+    const todosLeitos = await query.find();
     
     console.log(`Total de leitos recuperados: ${todosLeitos.length}`);
     
@@ -52,14 +36,19 @@ export const getLeitosService = async (eventoId = null) => {
         const hospedagemQuery = new Parse.Query('Hospedagem');
         hospedagemQuery.equalTo('evento', evento);
         hospedagemQuery.include('leito');
+        hospedagemQuery.limit(1000000); // Um valor grande para buscar todas as hospedagens
         
         const hospedagens = await hospedagemQuery.find();
+        console.log(`Total de hospedagens encontradas: ${hospedagens.length}`);
         
         // Para cada hospedagem, marcar o leito correspondente como hospedado
-        hospedagens.forEach(hospedagem => {
+        for (const hospedagem of hospedagens) {
           const leitoHospedado = hospedagem.get('leito');
           if (leitoHospedado) {
-            const leitoIndex = leitos.findIndex(l => l.id === leitoHospedado.id);
+            const leitoId = leitoHospedado.id;
+            console.log(`Tentando marcar leito ID ${leitoId} como hospedado`);
+            
+            const leitoIndex = leitos.findIndex(l => l.id === leitoId);
             if (leitoIndex >= 0) {
               leitos[leitoIndex].hospedado = true;
               leitos[leitoIndex].hospedagem = {
@@ -67,9 +56,20 @@ export const getLeitosService = async (eventoId = null) => {
                 nomeHospede: hospedagem.get('nomeHospede'),
                 checkIn: hospedagem.get('checkIn')
               };
+              console.log(`Leito ${leitos[leitoIndex].numero} (ID: ${leitoId}) marcado como hospedado`);
+            } else {
+              console.warn(`Leito com ID ${leitoId} não encontrado na lista de leitos`);
             }
+          } else {
+            console.warn('Hospedagem sem leito associado encontrada');
           }
-        });
+        }
+        
+        // Log dos leitos marcados como hospedados
+        const leitosHospedados = leitos.filter(l => l.hospedado);
+        console.log(`Total de leitos marcados como hospedados: ${leitosHospedados.length}`);
+        console.log('IDs dos leitos hospedados:', leitosHospedados.map(l => l.id));
+        
       } catch (err) {
         console.error('Erro ao verificar hospedagens:', err);
       }
