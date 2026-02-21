@@ -20,6 +20,9 @@ const TelaInicial = () => {
   const [showGerenciarModal, setShowGerenciarModal] = useState(false);
   const [leitoSelecionado, setLeitoSelecionado] = useState(null);
 
+  // Contador em segundos até a próxima atualização (60 s)
+  const [segundosRestantes, setSegundosRestantes] = useState(60);
+
   useEffect(() => {
     // Função para buscar todos os leitos e verificar evento em andamento
     const fetchData = async () => {
@@ -54,10 +57,16 @@ const TelaInicial = () => {
     document.getElementById('root').style.display = 'flex';
     document.getElementById('root').style.flexDirection = 'column';
     
-    // Configurar atualização automática a cada 10 segundos
+    // Contador: a cada 1 segundo decrementa; ao chegar em 0, atualiza e reseta para 60
     const intervalo = setInterval(() => {
-      fetchData();
-    }, 30000);
+      setSegundosRestantes((prev) => {
+        if (prev <= 1) {
+          fetchData();
+          return 60;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     
     // Limpar o intervalo quando o componente for desmontado
     return () => clearInterval(intervalo);
@@ -168,11 +177,14 @@ const TelaInicial = () => {
     return (
       <div className="tela-inicial">
         <header className="app-header">
-          <h1>Sistema de Gerenciamento de Leitos</h1>
+          <h1>V. 2.0 - Sistema de Gerenciamento de Leitos</h1>
         </header>
         <div className="loading-container">
           <div className="loading-spinner"></div>
           <p className="loading-text">Carregando leitos...</p>
+        </div>
+        <div className="contador-atualizacao" aria-live="polite">
+          Atualiza em <strong>{segundosRestantes}</strong> s
         </div>
       </div>
     );
@@ -182,7 +194,7 @@ const TelaInicial = () => {
     return (
       <div className="tela-inicial">
         <header className="app-header">
-          <h1>Sistema de Gerenciamento de Leitos</h1>
+          <h1>V. 2.0 - Sistema de Gerenciamento de Leitos</h1>
         </header>
         <div className="error-container">
           <p>{error}</p>
@@ -193,6 +205,9 @@ const TelaInicial = () => {
             Tentar novamente
           </button>
         </div>
+        <div className="contador-atualizacao" aria-live="polite">
+          Atualiza em <strong>{segundosRestantes}</strong> s
+        </div>
       </div>
     );
   }
@@ -200,7 +215,7 @@ const TelaInicial = () => {
   return (
     <div className="tela-inicial">
       <header className="app-header">
-        <h1>Sistema de Gerenciamento de Leitos ({leitos.filter(leito => !leito.hospedado).length} disponíveis)</h1>
+        <h1>V. 2.0 - Sistema de Gerenciamento de Leitos ({leitos.filter(leito => !leito.hospedado).length} disponíveis)</h1>
       </header>
       
       <div className="acoes-container">
@@ -276,6 +291,11 @@ const TelaInicial = () => {
           onRemove={handleHospedagemRemove}
         />
       )}
+
+      {/* Contador flutuante: segundos até a próxima atualização */}
+      <div className="contador-atualizacao" aria-live="polite">
+        Atualiza em <strong>{segundosRestantes}</strong> s
+      </div>
     </div>
   );
 };

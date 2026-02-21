@@ -20,7 +20,7 @@ const CriarEvento = () => {
   return (
     <div className="criar-evento-page">
       <header className="app-header">
-        <h1>Sistema de Gerenciamento de Leitos</h1>
+        <h1>V. 2.0 - Sistema de Gerenciamento de Leitos</h1>
       </header>
       
       <div className="page-content">
